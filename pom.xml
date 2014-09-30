@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.symulakr</groupId>
+    <artifactId>restapi</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>RestApi</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <spring.version>4.0.6.RELEASE</spring.version>
+        <c3p0.version>0.9.5-pre8</c3p0.version>
+        <tomcat-maven.version>2.2</tomcat-maven.version>
+        <mysql-connector.version>5.1.33</mysql-connector.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local_tomcat</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>${tomcat-maven.version}</version>
+                        <executions>
+                            <execution>
+                                <id>install_to_tomcat</id>
+                                <phase>
+                                    install
+                                </phase>
+                                <goals>
+                                    <goal>deploy-only</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <url>http://localhost:8080/manager/text</url>
+                            <server>local_tomcat</server>
+                            <path>/${name}</path>
+                            <update>true</update>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
